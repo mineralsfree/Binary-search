@@ -143,7 +143,6 @@
 
 
   Begin
-  Randomize;
   for i:=1 to n do
     begin
     with M[i] do
