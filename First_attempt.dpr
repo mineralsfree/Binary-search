@@ -4,7 +4,7 @@ program First_attempt;
 uses
   SysUtils;
 
-const n = 10;
+const n = 100;
 Type Trec = record
 	num: integer;
 	str: String[12];
@@ -12,70 +12,34 @@ Type Trec = record
 	end;
 TM = array[1..n] of Trec;
 var M:TM;
+numbi:Integer;
 i,inputnum,count:integer;
 inputStr:String;
+
+
 procedure Str_sort(var A:TM);
 var i,j: integer;
-hold:string;
+var hold: Trec;
 begin
 for i:=2 to n do 
 	begin
-	with A[i] do
-		begin
-		hold:=str;
+		hold:=A[i];
 		j:=i;
-		while	 ((J>1) and (A[j-1].str>hold) ) do
+		while	 ((J>1) and (A[j-1].str>hold.str) ) do
 		begin		
-		A[j].str:=A[j-1].str;
+		A[j]:=A[j-1];
 		dec(j);
 		end;
-	A[j].str:=hold;
-	end;
-end;
-end;
+	A[j]:=hold;
 
-function binary_str (str:String; var A:TM): integer;
-var i:integer;
-var left,right,mid:integer;
-begin
-left:=1;
-right:=n;
-while left<=right do
-begin
-mid:=left+(right-left) div 2;
-A[mid].f:=true;
-if (str<A[mid].str) then right:=mid-1 
-else if (str>A[mid].str) then left:= mid+1
-else begin result:=mid; exit; end;
-end;
-result:=-1;
+  end;
 end;
 
 
-function binary_num (num:integer; var A:TM): integer;
-var i:integer;
-var left,right,mid:integer;
-begin
-left:=1;
-right:=n;
-while left<=right do
-begin
-mid:=left+(right-left) div 2;
-A[mid].f:=true;
-if (num<A[mid].num) then right:=mid-1 
-else if (num>A[mid].num) then left:= mid+1
-else begin result:=A[mid].num; exit; end;
-end;
-  writeln(-1)    ;
-  Readln;
-end;
 
 procedure writearray(A:TM);
 var i:integer  ;
 begin
-writeln;
-writeln;
-writeln('Field1'+#$9+ 'Field2'+#$9+#$9+'Field3');
   for I := 1 to n  do
   begin
 	with M[i] do
@@ -88,29 +52,28 @@ end;
 
 
 procedure num_sort(var A:TM);
-var i,j,hold: integer;
+var i,j : integer;
+hold :Trec;
 begin
-for i:=2 to n do 
+for i:=2 to n do
 	begin
-	with A[i] do
-		begin
-		hold:=num;
+		hold:=A[i];
 		j:=i;
-		while	 ((J>1) and (A[j-1].num>hold) ) do
-		begin		
-		A[j].num:=A[j-1].num;
+		while	 ((J>1) and (A[j-1].num>hold.num) ) do
+		begin
+		A[j]:=A[j-1];
 		dec(j);
 		end;
-	A[j].num:=hold;
-	end;
+	A[j]:=hold;
 end;
 end;
 
-procedure Boolean_count(M:TM);
+procedure Boolean_count(var M:TM);
 var i:integer;
 begin
+count:=0;
 for i:=1 to n do
-	begin 
+	begin
 	with M[i] do
 		begin
 		if f = true then
@@ -118,34 +81,103 @@ for i:=1 to n do
 		F:=false;
 	end;
 end;
+write('Number of fails: ');
 writeln(count);
 end;
+
+function binary_str (str:String; var A:TM): Integer;
+var i:integer;
+var left,right,mid,see:integer;
+begin
+left:=1;
+right:=n;
+see:=0;
+while left<=right do
+begin
+mid:=left+(right-left) div 2;
+A[mid].f:=true;
+if (str<A[mid].str) then right:=mid-1
+else if (str>A[mid].str) then left:= mid+1
+else if (str=A[mid].str)  then
+  begin
+  see:=mid;
+  left:=right+1;
+  end;
+end;
+  if see = 0 then
+  begin
+    writeln('Not found');
+    result:=-1;
+  end
+  else
+  result:=see;
+end;
+
+function binary_num (num:integer; var A:TM): integer;
+var i:integer;
+var left,right,mid,see:integer;
+begin
+left:=1;
+right:=n;
+see:=0;
+while left<=right do
+begin
+mid:=left+(right-left) div 2;
+A[mid].f:=true;
+if (num<A[mid].num) then right:=mid-1
+else if (num>A[mid].num) then left:= mid+1
+else  if num=A[mid].num  then
+  begin
+  see:=A[mid].num;
+  left:=right+1;
+  end;
+end;
+if see = 0 then
+  begin
+   Writeln('Not found');
+   result:=-1
+  end
+
+  else
+  result:=see;
+end;
+
 
 Begin
 for i:=1 to n do
 	begin
 	with M[i] do
 		begin
-		num:=random(201);		
-		str:='my_test' + IntTostr(i);
-		f:=false;			
+		num:=random(200)+1;
+		str:='my_test_' + IntTostr(i);
+		f:=false;
 		end;
 	end;
-  Randomize;
 //Writearray(M);
 Str_sort(M);
 //Writearray(M);
-//read(inputstr);
-//writeln(binary_str(inputstr,M));
-//writearray(M);
-//Boolean_count(M);
+read(inputstr);
+writeln('The position of this String is:' + IntToStr(binary_str(inputstr,M)));
+Boolean_count(M);
+writearray(M);
 num_sort(M);
 writearray(M);
-read(inputnum);
-writeln(binary_num(inputnum,M));
+readln(inputnum);
+numbi:=binary_num(inputnum,M);
+while M[numbi].num = inputnum  do  Dec(numbi);
+while M[numbi].num = inputnum do
+ begin
+   M[numbi].f:=True;
+   write(M[numbi].num);
+   write(#$9);
+   write(M[numbi].str);
+   write(#$9);
+   write(M[numbi].f);
+   write(#$9);
+   inc(numbi);
+ end;
 //writearray(M);
 Boolean_count(M);
-
-read(inputnum);
+readln;
 end.
 
