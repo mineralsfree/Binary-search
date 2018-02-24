@@ -10,10 +10,9 @@
     end;
   TM = array[1..n] of Trec;
   var M:TM;
-  numbi:Integer;
-  kek:Real;
-  i,inputnum,ifint,count:integer;
-  numin,inputStr:String;
+  numbi,ifint:Integer;
+  i,count:integer;
+  inputnum,inputStr:String;
 
     procedure Str_sort(var A:TM);
   var i,j: integer;
@@ -151,23 +150,21 @@
   //Writearray(M);
   Str_sort(M);
   //Writearray(M);
-  readln(inputstr);
+  read(inputstr);
   writeln('Element index: ' + IntToStr(binary_str(inputstr,M)));
   Boolean_count(M);
   //writearray(M);
   num_sort(M);
   //writearray(M);
-  readln(numin);
-  Val(numin,inputnum,ifint);
-  if((ifint)=0) then
-  begin
-    inputnum:=StrToInt(numin);
-    numbi:=binary_num(inputnum,M);
-  end
-    else 
-    begin 
-    writeln('Wrong Input');
-    Readln;
+  readln(inputnum);
+  val(inputnum,ifint,ifint);
+  if ifint<>0 then
+
+  numbi:=binary_num(StrToInt(inputnum),M);
+  else
+    begin
+    writeln('Bad Input');
+    numbi:=-1;
     end;
   while M[numbi].num = inputnum  do
   Dec(numbi);

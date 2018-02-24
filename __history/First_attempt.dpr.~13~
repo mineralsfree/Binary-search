@@ -11,11 +11,9 @@
   TM = array[1..n] of Trec;
   var M:TM;
   numbi:Integer;
-  kek:Real;
-  i,inputnum,ifint,count:integer;
-  numin,inputStr:String;
-
-    procedure Str_sort(var A:TM);
+  i,inputnum,count:integer;
+  inputStr:String;
+  procedure Str_sort(var A:TM);
   var i,j: integer;
   var hold: Trec;
   begin
@@ -137,6 +135,8 @@
     else
     result:=see;
   end;
+
+
   Begin
   Randomize;
   for i:=1 to n do
@@ -151,24 +151,14 @@
   //Writearray(M);
   Str_sort(M);
   //Writearray(M);
-  readln(inputstr);
+  read(inputstr);
   writeln('Element index: ' + IntToStr(binary_str(inputstr,M)));
   Boolean_count(M);
   //writearray(M);
   num_sort(M);
   //writearray(M);
-  readln(numin);
-  Val(numin,inputnum,ifint);
-  if((ifint)=0) then
-  begin
-    inputnum:=StrToInt(numin);
-    numbi:=binary_num(inputnum,M);
-  end
-    else 
-    begin 
-    writeln('Wrong Input');
-    Readln;
-    end;
+  readln(inputnum);
+  numbi:=binary_num(inputnum,M);
   while M[numbi].num = inputnum  do
   Dec(numbi);
   inc(numbi);

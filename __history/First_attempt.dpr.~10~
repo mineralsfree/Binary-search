@@ -1,21 +1,23 @@
   program First_attempt;
+
   {$APPTYPE CONSOLE}
   uses
     SysUtils;
-  const n = 1000;
+
+  const n = 100;
   Type Trec = record
     num: integer;
     str: String[12];
-    f: boolean;               
+    f: boolean;
     end;
   TM = array[1..n] of Trec;
   var M:TM;
   numbi:Integer;
-  kek:Real;
-  i,inputnum,ifint,count:integer;
-  numin,inputStr:String;
+  i,inputnum,count:integer;
+  inputStr:String;
 
-    procedure Str_sort(var A:TM);
+
+  procedure Str_sort(var A:TM);
   var i,j: integer;
   var hold: Trec;
   begin
@@ -47,6 +49,7 @@
     end;
     end;
   end;
+
 
   procedure num_sort(var A:TM);
   var i,j : integer;
@@ -137,6 +140,8 @@
     else
     result:=see;
   end;
+
+
   Begin
   Randomize;
   for i:=1 to n do
@@ -149,26 +154,16 @@
       end;
     end;
   //Writearray(M);
-  Str_sort(M);
+  //Str_sort(M);
   //Writearray(M);
-  readln(inputstr);
-  writeln('Element index: ' + IntToStr(binary_str(inputstr,M)));
-  Boolean_count(M);
+  //read(inputstr);
+  //writeln('Element index: ' + IntToStr(binary_str(inputstr,M)));
+  //Boolean_count(M);
   //writearray(M);
   num_sort(M);
-  //writearray(M);
-  readln(numin);
-  Val(numin,inputnum,ifint);
-  if((ifint)=0) then
-  begin
-    inputnum:=StrToInt(numin);
-    numbi:=binary_num(inputnum,M);
-  end
-    else 
-    begin 
-    writeln('Wrong Input');
-    Readln;
-    end;
+  writearray(M);
+  readln(inputnum);
+  numbi:=binary_num(inputnum,M);
   while M[numbi].num = inputnum  do
   Dec(numbi);
   inc(numbi);
@@ -183,7 +178,7 @@
      inc(numbi);
    end;
   //writearray(M);
-  Boolean_count(M);
+  //Boolean_count(M);
   readln;
   end.
 
