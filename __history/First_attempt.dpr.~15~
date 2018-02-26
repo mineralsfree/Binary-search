@@ -6,7 +6,7 @@
   Type Trec = record
     num: integer;
     str: String[12];
-    f: boolean;
+    f: boolean;               
     end;
   TM = array[1..n] of Trec;
   var M:TM;
@@ -19,12 +19,12 @@
   var i,j: integer;
   var hold: Trec;
   begin
-  for i:=2 to n do
+  for i:=2 to n do 
     begin
       hold:=A[i];
       j:=i;
       while	 ((J>1) and (A[j-1].str>hold.str) ) do
-      begin
+      begin		
       A[j]:=A[j-1];
       dec(j);
       end;
@@ -159,30 +159,29 @@
   //writearray(M);
   readln(numin);
   Val(numin,inputnum,ifint);
-  if((ifint)<>0) then
+  if((ifint)=0) then
   begin
-    writeln('Wrong Input');
-    Readln;
-  end
-    else
-    begin
     inputnum:=StrToInt(numin);
     numbi:=binary_num(inputnum,M);
-    while M[numbi].num = inputnum  do
-    Dec(numbi);
-    inc(numbi);
-    while M[numbi].num = inputnum do
-     begin
-       M[numbi].f:=True;
-       write(M[numbi].num);
-       write(#$9);
-       write(M[numbi].str);
-       write(#$9);
-       writeln(M[numbi].f);
-       inc(numbi);
-     end;
+  end
+    else 
+    begin 
+    writeln('Wrong Input');
+    Readln;
     end;
-
+  while M[numbi].num = inputnum  do
+  Dec(numbi);
+  inc(numbi);
+  while M[numbi].num = inputnum do
+   begin
+     M[numbi].f:=True;
+     write(M[numbi].num);
+     write(#$9);
+     write(M[numbi].str);
+     write(#$9);
+     writeln(M[numbi].f);
+     inc(numbi);
+   end;
   //writearray(M);
   Boolean_count(M);
   readln;
