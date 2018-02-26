@@ -2,7 +2,7 @@
   {$APPTYPE CONSOLE}
   uses
     SysUtils;
-  const n = 100;
+  const n = 1000;
   Type Trec = record
     num: integer;
     str: String[12];
@@ -78,7 +78,7 @@
       F:=false;
     end;
   end;
-  write('Number of true''s: ');
+  write('Number of fails: ');
   writeln(count);
   end;
 
@@ -151,20 +151,18 @@
   //Writearray(M);
   Str_sort(M);
   //Writearray(M);
-  writeln('Insert String');
   readln(inputstr);
   writeln('Element index: ' + IntToStr(binary_str(inputstr,M)));
-  Writearray(M);
   Boolean_count(M);
-  writearray(M);
+  //writearray(M);
   num_sort(M);
   //writearray(M);
-  writeln('Insert INTEGER num');
   readln(numin);
   Val(numin,inputnum,ifint);
   if((ifint)<>0) then
   begin
     writeln('Wrong Input');
+    Readln;
   end
     else
     begin
